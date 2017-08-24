@@ -17,7 +17,7 @@ function enum_nodes_detailed() {
 [$eid]
 type=server
 address=127.0.0.1
-port=$(/home/a/spd/$eid*/print_port.sh)
+port=$(__clusterdir/../$eid*/print_port.sh)
 protocol=MySQLBackend
 
 EON
@@ -36,8 +36,8 @@ servers=$(enum_nodes)
 [Read-Service]
 type=service
 router=readconnroute
-user=galera
-passwd=galera
+user=maxscale
+passwd=maxscale
 servers=$(enum_nodes)
 
 $(enum_nodes_detailed)

@@ -10,7 +10,7 @@ major=${ver%\.*}
 if [ "$(detect_yum)" == "yum" ] ; then
   FILE=https://downloads.mariadb.com/MaxScale/${ver}/$(detect_distname)/$(detect_distver)/$(detect_x86)/maxscale-${ver}.$(detect_distname).$(detect_distver).tar.gz
 elif [ "$(detect_yum)" == "apt" ] ; then
-  FILE=https://downloads.mariadb.com/MaxScale/${ver}/$(detect_distname)/dists/$(detect_distcode)/main/binary-$(detect_amd64)/maxscale-${ver}.$(detect_distname).$(detect_discode).tar.gz
+  FILE=https://downloads.mariadb.com/MaxScale/${ver}/$(detect_distname)/dists/$(detect_distcode)/main/binary-$(detect_amd64)/maxscale-${ver}.$(detect_distname).$(detect_distcode).tar.gz
 fi
 
 mkdir -p __workdir/../_depot/s-tar/__version
