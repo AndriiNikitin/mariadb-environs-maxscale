@@ -1,0 +1,33 @@
+[Write-Service]
+type=service
+router=readconnroute
+user=maxscale
+passwd=maxscale
+servers=m1, m2
+
+[Read-Service]
+type=service
+router=readconnroute
+user=galera
+passwd=galera
+servers=m1, m2
+
+[m1]
+type=server
+address=127.0.0.1
+port=3307
+protocol=MySQLBackend
+
+[m2]
+type=server
+address=127.0.0.1
+port=3308
+protocol=MySQLBackend
+
+[Replication-Monitor]
+type=monitor
+module=mysqlmon
+servers=m1, m2
+user=maxscale
+passwd=maxscale
+monitor_interval=10000
