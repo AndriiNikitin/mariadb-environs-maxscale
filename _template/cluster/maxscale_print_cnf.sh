@@ -25,10 +25,29 @@ EON
   done
 }
 
+
+function write_router_options() {
+  if [ -z "$1" ] ; then 
+    echo master
+  else
+    echo $1
+  fi
+}
+
+
+function read_router_options() {
+  if [ -z "$1" ] ; then 
+    echo slave
+  else
+    echo $1
+  fi
+}
+
 cat << EOF
 [Write-Service]
 type=service
 router=readconnroute
+router_options=$(write_router_options $1)
 user=maxscale
 passwd=maxscale
 servers=$(enum_nodes)
@@ -36,6 +55,7 @@ servers=$(enum_nodes)
 [Read-Service]
 type=service
 router=readconnroute
+router_options=$(read_router_options $1)
 user=maxscale
 passwd=maxscale
 servers=$(enum_nodes)

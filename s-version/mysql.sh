@@ -7,6 +7,6 @@ mysql="$(which mysql 2>/dev/null)" || mysql="$(ls __workdir/../_depot/m-tar/*/bi
 if [ -z $1 ] ; then
   $mysql -S __workdir/write.sock -umaxscale -pmaxscale test
 else
-  $mysql -S __workdir/write.sock -umaxscale -pmaxscale -e "$@" test
+  $mysql -S __workdir/write.sock -umaxscale -pmaxscale -e "$*" test
 fi
 
