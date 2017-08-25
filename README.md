@@ -13,8 +13,9 @@ Read more about usage in mariadb-environs repo
 # download and unpack tar
 ./build_or_download.sh s1
 
-# add cluster nodes into maxscale config
-c1/maxscale_print_cnf.sh >> s1-2.1.6/s.cnf
+# generate maxscale config from c1
+# for galera cluster use gen_galera_cnf.sh instead of gen_replication_cnf.sh
+s1*/gen_replication_cnf.sh c1
 
 # setup acl for maxscale in the cluster
 c1/maxscale_setup_acl.sh

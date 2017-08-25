@@ -7,8 +7,10 @@ set -e
 if [ ! -e common.sh ] ; then
   [ -d mariadb-environs ] || git clone http://github.com/AndriiNikitin/mariadb-environs
   cd mariadb-environs
-  ./get_plugin.sh maxscale
 fi
+
+./get_plugin.sh maxscale
+./get_plugin.sh galera
 
 # optional - make sure that prerequisites for MariaDB tar are in place
 # sudo _template/install_m-version_dep.sh
@@ -26,23 +28,21 @@ c1/replant.sh 10.2.8
 c1/gen_cnf.sh
 c1/install_db.sh
 
-# now regerate config files with binlog enabled for simpler replication setup
-m1*/gen_cnf.sh log-bin
-
-c1/startup.sh
-
-# setup replication
-m2*/replicate.sh m1
+c1/galera_setup_acl.sh
+c1/galera_start_new.sh
 
 # generate templates for maxscale
 ./replant.sh s1-2.1.6
 ./build_or_download.sh s1
 
-# generate maxscale config from c1
-s1*/gen_replication_cnf.sh c1
+# generate maxscale config from the galera cluster
+s1*/gen_galera_cnf.sh c1
 
 # setup acl for maxscale in the cluster
 c1/maxscale_setup_acl.sh
+
+# let cluster initialize
+sleep 5
 
 s1*/startup.sh
 # create table in maxscale
