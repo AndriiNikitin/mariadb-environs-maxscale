@@ -16,4 +16,4 @@ fi
 mkdir -p __workdir/../_depot/s-tar/__version
 
 ( cd __workdir/../_depot/s-tar/__version && \
-[[ -f $(basename $FILE) ]] || wget -nc $FILE && tar -zxf $(basename $FILE) --strip 1 )
+[[ -f $(basename $FILE) ]] || [ -e bin/maxscale ] || { wget -nc $FILE && tar -zxf $(basename $FILE) --strip 1; } )
